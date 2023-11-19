@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "title": "iPhone 13",
+    "price": 999.99,
+    "thumbnail": "iphone13.jpg",
+    "code": "IP13",
+    "stock": 50
+  },
+  {
+    "id": 2,
+    "title": "Samsung Galaxy S21",
+    "price": 899.99,
+    "thumbnail": "s21.jpg",
+    "code": "S21",
+    "stock": 40
+  },
+  {
+    "id": 3,
+    "title": "Google Pixel 6",
+    "price": 899.99,
+    "thumbnail": "pixel6.jpg",
+    "code": "PIX6",
+    "stock": 30
+  },
+  {
+    "id": 5,
+    "title": "Xiaomi Mi 11",
+    "price": 699.99,
+    "thumbnail": "mi11.jpg",
+    "code": "MI11",
+    "stock": 60
+  }
+]
