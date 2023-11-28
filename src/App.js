@@ -1,39 +1,26 @@
 import express from 'express';
-import { ProductManager } from './ProductManager.js';
+import { ProductManager } from './ProductManager.js'; // Asegúrate de usar la extensión '.js'
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 const manager = new ProductManager();
+// Middleware para parsear el body de las solicitudes
+app.use(express.json());
 
 // Ruta de bienvenida para el endpoint '/'
 app.get('/', (req, res) => {
   res.send('Bienvenido a la aplicación de gestión de productos');
 });
 
-// Ruta para obtener productos con límite opcional
-app.get('/products', (req, res) => {
-  try {
-    const limit = req.query.limit;
-    let products = manager.getAllProducts();
-
-    if (limit) {
-      const parsedLimit = parseInt(limit);
-      if (!isNaN(parsedLimit)) {
-        products = products.slice(0, parsedLimit);
-      } else {
-        throw new Error('El parámetro de límite debe ser un número válido.');
-      }
-    }
-
-    res.json({ productos: products });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+// Rutas para productos
+app.get('/api/products/', (req, res) => {
+  // Listar todos los productos
+  res.json(manager.getAllProducts());
 });
 
-// Ruta para obtener un producto por ID
-app.get('/product/:pid', (req, res) => {
-  const productId = parseInt(req.params.pid); // Convertir a número entero
+app.get('/api/products/:pid', (req, res) => {
+  // Obtener un producto por ID
+  const productId = parseInt(req.params.pid);
   const product = manager.getProductById(productId);
 
   if (product) {
@@ -43,6 +30,29 @@ app.get('/product/:pid', (req, res) => {
   }
 });
 
+app.post('/api/products/', (req, res) => {
+  // Agregar un nuevo producto
+  const newProduct = req.body;
+  manager.addProduct(newProduct);
+  res.status(201).json(newProduct);
+});
+
+app.put('/api/products/:pid', (req, res) => {
+  // Actualizar un producto por ID
+  const productId = parseInt(req.params.pid);
+  const updatedProduct = req.body;
+  manager.updateProduct(productId, updatedProduct);
+  res.json(updatedProduct);
+});
+
+app.delete('/api/products/:pid', (req, res) => {
+  // Eliminar un producto por ID
+  const productId = parseInt(req.params.pid);
+  manager.removeProductById(productId);
+  res.json({ message: 'Producto eliminado correctamente' });
+});
+
+// Inicia el servidor en el puerto especificado
 app.listen(PORT, () => {
   console.log(`Servidor Express escuchando en el puerto ${PORT}`);
 });
