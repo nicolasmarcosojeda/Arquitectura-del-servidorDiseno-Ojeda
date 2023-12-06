@@ -1,0 +1,31 @@
+<!-- views/realtimeproducts.handlebars -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css"> <!-- Ruta relativa a la carpeta public -->
+  <title>Tu Aplicación</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Listado de Productos en Tiempo Real</h1>
+    <ul id="realtimeProducts">
+      {{#each products}}
+        <li>{{this.title}} - {{this.price}}</li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on('updateProducts', (products) => {
+      // Actualizar la lista de productos en tiempo real
+      const ul = document.getElementById('realtimeProducts');
+      ul.innerHTML = products.map(product => `<li>${product.title} - ${product.price}</li>`).join('');
+    });
+  </script>
+</body>
+</html>
