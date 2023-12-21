@@ -1,0 +1,44 @@
+<!-- views/chat.handlebars -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Chat en línea</h1>
+    <ul id="chatMessages"></ul>
+    <form id="chatForm">
+      <input type="text" id="messageInput" placeholder="Escribe un mensaje..." />
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const chatForm = document.getElementById('chatForm');
+    const messageInput = document.getElementById('messageInput');
+    const chatMessages = document.getElementById('chatMessages');
+
+    chatForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const message = messageInput.value.trim();
+      if (message !== '') {
+        socket.emit('chatMessage', message);
+        messageInput.value = '';
+      }
+    });
+
+    socket.on('chatMessage', (data) => {
+      const li = document.createElement('li');
+      li.textContent = `${data.user}: ${data.message}`;
+      chatMessages.appendChild(li);
+    });
+  </script>
+</body>
+</html>
