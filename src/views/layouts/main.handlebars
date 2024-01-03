@@ -9,7 +9,9 @@
   <header>
     <h1>Bienvenido a la aplicación de gestión de productos</h1>
     <nav>
-      <!-- Puedes agregar enlaces de navegación si es necesario -->
+      <a href="/">Inicio</a>
+      <a href="/products">Productos</a>
+      <!-- Agrega más enlaces según sea necesario -->
     </nav>
   </header>
 
@@ -20,16 +22,18 @@
     <form action="/api/products/" method="post" id="addProductForm">
       <label for="title">Título:</label>
       <input type="text" id="title" name="title" required>
-      
+
       <label for="price">Precio:</label>
       <input type="number" id="price" name="price" step="0.01" required>
+
+      <!-- Agrega más campos según sea necesario para tu aplicación -->
 
       <button type="submit">Agregar Producto</button>
     </form>
   </main>
 
   <footer>
-    <!-- Puedes agregar contenido común para el pie de página si es necesario -->
+    <p>© 2024 Ecommerce</p>
   </footer>
 </body>
 </html>

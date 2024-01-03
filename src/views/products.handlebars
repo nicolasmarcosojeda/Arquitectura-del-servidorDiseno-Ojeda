@@ -1,0 +1,17 @@
+<h1>Productos</h1>
+
+{{#each response.payload}}
+  <div>
+    <h2>{{this.title}}</h2>
+    <p>Precio: ${{this.price}}</p>
+    <p>Categoría: {{this.category}}</p>
+    <p>Disponibilidad: {{this.availability}}</p>
+    <a href="/products/{{this._id}}">Ver detalles</a>
+    <form action="/api/carts/{{cartId}}" method="POST">
+      <input type="hidden" name="productId" value="{{this._id}}">
+      <input type="submit" value="Agregar al carrito">
+    </form>
+  </div>
+{{/each}}
+
+<!-- Añade la paginación aquí utilizando los links de response.prevLink y response.nextLink -->
