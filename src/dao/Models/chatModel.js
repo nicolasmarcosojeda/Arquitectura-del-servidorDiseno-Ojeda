@@ -16,3 +16,4 @@ export async function saveChatMessageToMongoDB(message) {
 }
 
 export default ChatModel;
+
