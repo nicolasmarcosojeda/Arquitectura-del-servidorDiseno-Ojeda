@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 class ProductManager {
   constructor() {
     this.products = [];
-    this.filename = 'productos.json';
+    this.filename = path.join(__dirname, 'productos.json'); // Utiliza path.join para construir la ruta del archivo
     this.loadFromFile();
   }
 
