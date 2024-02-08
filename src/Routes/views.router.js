@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', async (req, res) => {
-    res.render('login'); // Corregido: pasando el nombre de la vista correctamente
+    res.render('login');
 });
 
 export default router;

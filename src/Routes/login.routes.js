@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 // Importa el servicio de autenticación u otra lógica necesaria
-import { authenticate, getUserById } from '../services/authService.js';
+import { authenticate, getUserById } from '../dao/services/authService.js';
 
 // Ruta para la página de login
 router.get('/', (req, res) => {
