@@ -4,7 +4,7 @@ import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 import handlebars from 'express-handlebars';
 import session from 'express-session';
-import productsModel from './dao/Models/productsModel.js';
+import productsModel from './Models/productsModel.js';
 import productsroutes from './Routes/products.routes.js';
 import chatRouter from './routes/chat.routes.js';
 import loginRouter from './routes/login.routes.js';

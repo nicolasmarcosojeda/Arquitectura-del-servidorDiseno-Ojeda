@@ -1,5 +1,6 @@
 import express from 'express';
-import { saveChatMessageToMongoDB } from '../dao/Models/chatModel.js'; // Ajusta la ruta según tu estructura
+import { saveChatMessageToMongoDB } from '../models/chatModel.js';
+ // Ajusta la ruta según tu estructura
 
 const router = express.Router();
 

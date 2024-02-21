@@ -1,6 +1,5 @@
 // Importa express y otros módulos necesarios
 import express from 'express';
-import productsModel from '../dao/Models/productsModel.js';  // Ajusta la ruta según tu estructura
 
 // Crea una instancia del enrutador de express
 const router = express.Router();
