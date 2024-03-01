@@ -1,5 +1,6 @@
 // controllers/productsController.js
 import productService from '../services/productService.js';
+import errorMessages from './errorMessages.js';
 
 const productsController = {
   getAllProducts: async (req, res) => {

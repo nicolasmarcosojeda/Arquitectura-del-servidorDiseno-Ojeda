@@ -12,6 +12,12 @@ import logoutRouter from './routes/logout.routes.js';
 import checkUserRole from './middlewares/checkRoleMiddleware.js';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
+import errorMessages from './errorHandler.js';
+
+
+
+
+
 
 
 // Conexión a MongoDB Atlas
@@ -55,11 +61,47 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Configurar estrategia local de Passport
-passport.use(
-  new LocalStrategy((username, password, done) => {
-   
-  })
-);
+passport.use(new LocalStrategy(async (username, password, done) => {
+  try {
+    // Buscar usuario en la base de datos por nombre de usuario
+    const user = await User.findOne({ username });
+
+    // Si el usuario no existe, devolver un mensaje de error
+    if (!user) {
+      return done(null, false, { message: 'Nombre de usuario incorrecto' });
+    }
+
+    // Verificar si la contraseña es válida
+    const isValidPassword = await user.isValidPassword(password);
+
+    // Si la contraseña no es válida, devolver un mensaje de error
+    if (!isValidPassword) {
+      return done(null, false, { message: 'Contraseña incorrecta' });
+    }
+
+    // Si el usuario y la contraseña son válidos, devolver el usuario autenticado
+    return done(null, user);
+  } catch (error) {
+    // Si ocurre un error durante la autenticación, devolver el error
+    return done(error);
+  }
+}));
+
+// Serializar y deserializar usuarios
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    // Buscar usuario en la base de datos por su ID
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error);
+  }
+});
+
 
 // Serializar y deserializar usuarios
 passport.serializeUser((user, done) => {
@@ -99,6 +141,16 @@ app.use(
 
 // Middleware para parsear el body de las solicitudes
 app.use(express.json());
+
+app.get('/mockingproducts', async (req, res) => {
+  try {
+    const result = await generateMockProducts();
+    res.json(result);
+  } catch (error) {
+    console.error('Error al generar productos ficticios:', error);
+    res.status(500).json({ error: errorMessages.databaseError });
+  }
+});
 
 // Rutas para productos y chat
 app.use('/api/products', productsroutes);

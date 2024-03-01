@@ -1,3 +1,5 @@
+import errorMessages from './errorMessages.js';
+
 // Middleware de autorización basado en el rol del usuario
 const authorizeRole = (requiredRole) => {
     return (req, res, next) => {

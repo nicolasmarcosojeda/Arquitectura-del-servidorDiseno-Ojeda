@@ -2,6 +2,7 @@
 import express from 'express';
 import CartService from '../services/cartService.js'; // Ajusta la ruta según tu estructura
 import ProductService from '../services/productService.js'; // Ajusta la ruta según tu estructura
+import errorMessages from './errorMessages.js';
 
 // Crea una instancia del enrutador de express
 const router = express.Router();

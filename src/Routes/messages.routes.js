@@ -1,6 +1,8 @@
 import express from 'express';
 const router = express.Router();
 import { MessageService } from '../services/messagesService.js';
+import errorMessages from '../errorMessages.js';
+
 
 const messagesService = new MessageService();
 

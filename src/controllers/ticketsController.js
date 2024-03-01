@@ -1,5 +1,7 @@
 import TicketDAO from '../dao/ticketDao.js';
 import TicketDTO from '../dto/ticketDto.js';
+import errorMessages from './errorMessages.js';
+
 
 const ticketsController = {
   async purchaseCart(req, res) {
