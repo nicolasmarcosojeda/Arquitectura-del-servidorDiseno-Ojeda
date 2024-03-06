@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import mongoose from 'mongoose';
 import handlebars from 'express-handlebars';
 import session from 'express-session';
+import logger from './config/logger.js';
 import productsModel from './Models/productsModel.js';
 import productsroutes from './Routes/products.routes.js';
 import chatRouter from './routes/chat.routes.js';
@@ -13,11 +14,6 @@ import checkUserRole from './middlewares/checkRoleMiddleware.js';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import errorMessages from './errorHandler.js';
-
-
-
-
-
 
 
 // Conexión a MongoDB Atlas
@@ -157,6 +153,20 @@ app.use('/api/products', productsroutes);
 app.use('/chat', chatRouter(io));
 app.use('/register', logoutRouter);
 app.use('/login', loginRouter);
+
+// Agregar la ruta para /loggerTest
+app.get('/loggerTest', (req, res) => {
+  // Ejemplos de diferentes niveles de registro para probar el logger
+  logger.debug('Este es un mensaje de debug');
+  logger.http('Este es un mensaje de http');
+  logger.info('Este es un mensaje de info');
+  logger.warning('Este es un mensaje de warning');
+  logger.error('Este es un mensaje de error');
+  logger.fatal('Este es un mensaje de fatal');
+
+  // Envía una respuesta al cliente
+  res.send('Registro de prueba completado');
+});
 
 // Ruta protegida
 app.get('/dashboard', (req, res) => {
