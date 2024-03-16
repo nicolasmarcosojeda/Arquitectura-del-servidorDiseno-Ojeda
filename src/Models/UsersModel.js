@@ -2,9 +2,30 @@ import passport from 'passport';
 import User from './models/User.js';
 import jwt from 'jsonwebtoken';
 import passportJWT from 'passport-jwt';
+import mongoose from 'mongoose';
 
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
+
+const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  firstName: String,
+  lastName: String,
+  age: Number,
+  role: {
+    type: String,
+    enum: ['regular', 'premium'],
+    default: 'regular',
+  },
+});
+
+userSchema.plugin(passportLocalMongoose);
+
+const User = mongoose.model('User', userSchema);
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());

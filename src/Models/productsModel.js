@@ -6,6 +6,10 @@ const productSchema = new mongoose.Schema({
   thumbnail: String,
   code: String,
   stock: Number,
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User' ,
+  },
 });
 
 const productsModel = mongoose.model('Product', productSchema);
