@@ -13,6 +13,8 @@ import logoutRouter from './routes/logout.routes.js';
 import checkUserRole from './middlewares/checkRoleMiddleware.js';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 import errorMessages from './errorHandler.js';
 
 
@@ -108,6 +110,24 @@ passport.deserializeUser((id, done) => {
   // Aquí deberías obtener el usuario por su ID desde la base de datos
   done(null, user);
 });
+
+// Configuración de Swagger
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API de Productos y Carrito',
+      version: '1.0.0',
+      description: 'Documentación de la API de los módulos de productos y carrito',
+    },
+  },
+  // Ruta de los archivos de especificación de Swagger
+  apis: ['./controllers/productsController.js', './controllers/cartController.js'],
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 // Configurar middleware de sesión

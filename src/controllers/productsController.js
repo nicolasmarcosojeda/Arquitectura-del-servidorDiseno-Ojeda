@@ -4,7 +4,21 @@ import errorMessages from './errorMessages.js';
 import { canModifyProduct, canDeleteProduct } from './productPermissionsController.js';
 
 
+/**
+ * Controlador para gestionar operaciones relacionadas con productos.
+ * @namespace productsController
+ */
+
 const productsController = {
+  /**
+   * Obtiene todos los productos.
+   * @memberof productsController
+   * @function getAllProducts
+   * @param {Object} req - Objeto de solicitud.
+   * @param {Object} res - Objeto de respuesta.
+   * @returns {Object} - Retorna una lista de productos.
+   * @throws {Error} - Retorna un error si falla la obtención de los productos.
+   */
   getAllProducts: async (req, res) => {
     try {
       const products = await productService.getAllProducts();
