@@ -1,4 +1,5 @@
 import express from 'express';
+import { login } from './controllers/authController.js';
 import http from 'http';
 import { Server } from 'socket.io';
 import mongoose from 'mongoose';
