@@ -1,5 +1,5 @@
 import passport from 'passport';
-import User from './models/User.js';
+import User from './models/UsersModel.js';
 import jwt from 'jsonwebtoken';
 import passportJWT from 'passport-jwt';
 import mongoose from 'mongoose';
@@ -21,6 +21,11 @@ const userSchema = new mongoose.Schema({
     enum: ['regular', 'premium'],
     default: 'regular',
   },
+  // Nueva propiedad documents
+  documents: [{ name: String, reference: String }],
+
+  // Propiedad last_connection existente
+  last_connection: { type: Date, default: Date.now },
 });
 
 userSchema.plugin(passportLocalMongoose);

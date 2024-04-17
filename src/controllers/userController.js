@@ -21,6 +21,17 @@ const userController = {
     try {
       const userId = req.params.id;
       const updatedUserData = req.body;
+
+      // Verificar si el usuario ha cargado los documentos requeridos
+      if (
+        !updatedUserData.documents ||
+        !updatedUserData.documents.some(doc => doc.name === 'Identificación' && doc.reference) ||
+        !updatedUserData.documents.some(doc => doc.name === 'Comprobante de domicilio' && doc.reference) ||
+        !updatedUserData.documents.some(doc => doc.name === 'Comprobante de estado de cuenta' && doc.reference)
+      ) {
+        return res.status(400).json({ error: 'El usuario debe cargar los documentos requeridos' });
+      }
+
       await UserDAO.updateUser(userId, updatedUserData);
       res.status(200).json({ message: 'User updated successfully' });
     } catch (error) {
