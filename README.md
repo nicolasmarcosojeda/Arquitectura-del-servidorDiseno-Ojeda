@@ -7,8 +7,6 @@ Este proyecto es un backend para una aplicación de ecommerce, que proporciona u
 - Autenticación y gestión de usuarios
 - Carritos de compras con CRUD (Crear, Leer, Actualizar, Eliminar)
 - Roles de usuario (regular y premium)
-- Funcionalidad para subir documentos y cambiar roles
-- Sistema de chat básico
 - Flujo completo de compra con tickets
 - Soporte para JWT para autenticación segura
 - Integración con Swagger para documentación de la API
