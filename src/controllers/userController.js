@@ -33,21 +33,27 @@ const userController = {
       }
 
       await UserDAO.updateUser(userId, updatedUserData);
-      res.status(200).json({ message: 'User updated successfully' });
+      return res.status(200).json({ message: 'Usuario actualizado exitosamente' });
     } catch (error) {
-      console.error('Error updating user:', error);
-      res.status(500).json({ error: 'Error updating user' });
+      console.error('Error al actualizar usuario:', error);
+      return res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
 
   async deleteUser(req, res) {
     try {
       const userId = req.params.id;
+      const user = await UserDAO.getUserById(userId);
+
+      if (!user) {
+        return res.status(404).json({ error: `Usuario con ID ${userId} no encontrado` });
+      }
+
       await UserDAO.deleteUser(userId);
-      res.status(200).json({ message: 'User deleted successfully' });
+      return res.status(200).json({ message: 'Usuario eliminado con éxito' });
     } catch (error) {
-      console.error('Error deleting user:', error);
-      res.status(500).json({ error: 'Error deleting user' });
+      console.error('Error al eliminar usuario:', error);
+      return res.status(500).json({ error: 'Error interno del servidor' });
     }
   }
 };
